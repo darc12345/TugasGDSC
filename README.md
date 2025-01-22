@@ -1,4 +1,4 @@
-starting the postgres
+start the postgres container
 docker run --name GDSCAssPostgres -e POSTGRES_PASSWORD=password -d -p 5000:5432 postgres
 
 Creating the tables, run this in psql
