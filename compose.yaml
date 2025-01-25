@@ -1,0 +1,22 @@
+services:
+  homework-gdsc-backend:
+    depends_on:
+      - GDSCAssPostgres
+    build: ./server
+    ports:
+      - 3000:3000
+  GDSCAssPostgres:
+    image: postgres
+    ports:
+      - 5000:5432
+    restart: unless-stopped
+    volumes: 
+      - /var/lib/postgres/data
+    environment:
+      - POSTGRES_PASSWORD=password
+
+
+#docker run --name GDSCAssPostgres -e POSTGRES_PASSWORD=password -d -p 5000:5432 postgres
+
+volumes:
+  db:

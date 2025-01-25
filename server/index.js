@@ -1,14 +1,8 @@
 import express from "express";
 import dotenv from 'dotenv';
-import { drizzle } from 'drizzle-orm/node-postgres';
 import postgres from "postgres";
 import Controller from "./controller/controller.js";
 import { todosMiddleware } from "./service/service.js";
-
-function dbErrorHandler(err){
-    console.log('Error when querying the database');
-    return 'There is an error when querying the database';    
-}
 
 let app = express()
 const sql = postgres(dotenv.config('DATABASE_URL')['parsed']['DATABASE_URL']);
