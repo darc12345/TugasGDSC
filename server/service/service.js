@@ -8,7 +8,14 @@ export class Service{
         return await this.Repo.PostRegister(req,res);
     };
     async PostLogin(req, res){
-        return await this.Repo.PostLogin(req,res);
+        let isValid =  await this.Repo.PostLogin(req,res);
+        if(isValid){
+            req.session.user_id=req.body['user_id'];
+            return true;
+        }
+        else{
+            throw new Error("Invalid Credential");
+        }
     };
     async GetTodos(req, res){
         return await this.Repo.GetTodos(req,res);
@@ -26,6 +33,11 @@ export class Service{
         return await this.Repo.DeleteTodosById(req,res);
     };
 };
-export function todosMiddleware(req, res){
-    next()
+export function todosMiddleware(req, res, next){
+    if(req.session.user_id){
+        next();
+    }
+    else{
+        res.redirect('/login');
+    }
 }

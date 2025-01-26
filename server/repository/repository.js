@@ -8,6 +8,18 @@ export default class Repository {
         let json = req.body;
         let password_hash = await argon2.hash(json['password']);
         try {
+            var result = await this.db`
+            SELECT user_id
+            FROM users 
+            WHERE user_id = ${json['user_id']};`;
+        } catch (err) {
+            console.error(err);
+            throw new Error("Error when accessing the database");
+        }
+        if(result.length != 0){
+            throw new Error("An account with that user_id already exist");
+        }
+        try {
             await this.db`
             INSERT INTO 
             users(user_id, name, email, password_hash, updated_at) 
@@ -45,7 +57,7 @@ export default class Repository {
             INSERT INTO 
             todos(user_id, title, description, due_date, priority, is_complete, updated_at) 
             VALUES(
-                ${json['user_id']}, ${json['title']}, ${json['description']}, ${json['due_date']}, ${json['priority']}, ${json['is_complete']}, NOW()
+                ${req.session.user_id}, ${json['title']}, ${json['description']}, ${json['due_date']}, ${json['priority']}, ${json['is_complete']}, NOW()
             );`;
         } catch (err) {
             console.error(err);
@@ -92,7 +104,8 @@ export default class Repository {
         try {
             const result = await this.db`
             SELECT * 
-            FROM todos`;
+            FROM todos
+            WHERE user_id=${req.session.user_id}`;
             return result; // Returns all todos
         } catch (err) {
             console.error(err);
