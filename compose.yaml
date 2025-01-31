@@ -5,18 +5,14 @@ services:
     build: ./server
     ports:
       - 3000:3000
+
   GDSCAssPostgres:
     image: postgres
-    ports:
-      - 5000:5432
-    restart: unless-stopped
-    volumes: 
-      - /var/lib/postgres/data
+    restart: always
     environment:
-      - POSTGRES_PASSWORD=password
-
-
-#docker run --name GDSCAssPostgres -e POSTGRES_PASSWORD=password -d -p 5000:5432 postgres
-
-volumes:
-  db:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: gdsc  # Creates the `gdsc` database automatically
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d  # Mounts the directory with your `.sql` file
+    ports:
+      - "5000:5432"

@@ -1,4 +1,4 @@
-CREATE TABLE users(
+CREATE TABLE IF NOT EXISTS users(
   user_id VARCHAR,
   name TEXT,
   email VARCHAR UNIQUE NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE users(
 );
 
 CREATE TYPE priorities AS ENUM ('low', 'medium', 'high');
-CREATE TABLE todos(
+CREATE TABLE IF NOT EXISTS todos(
   todo_id uuid DEFAULT gen_random_uuid(),
   user_id VARCHAR,
   title VARCHAR NOT NULL,

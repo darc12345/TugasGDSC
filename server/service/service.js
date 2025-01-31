@@ -38,6 +38,7 @@ export function todosMiddleware(req, res, next){
         next();
     }
     else{
+        console.log("Logging in..")
         res.redirect('/login');
     }
 }

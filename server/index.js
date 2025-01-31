@@ -23,15 +23,15 @@ app.use(cookieSession({
   }))
 
 // Routes
-app.post("api/v1/register", (req, res) => controller.PostRegister(req, res));
-app.post("api/v1/login", (req, res) => controller.PostLogin(req, res));
+app.post("/api/v1/register", (req, res) => controller.PostRegister(req, res));
+app.post("/api/v1/login", (req, res) => controller.PostLogin(req, res));
 
 // Apply middleware to /todos routes
-app.use("api/v1/todos", todosMiddleware);
+app.use("/api/v1/todos", todosMiddleware);
 
-app.get("api/v1/todos", (req, res) => controller.GetTodos(req, res));
-app.post("api/v1/todos", (req, res) => controller.PostTodos(req, res));
-app.get("api/v1/todos/:id", (req, res) => controller.GetTodosById(req, res));
-app.put("api/v1/todos/:id", (req, res) => controller.UpdateTodosById(req, res));
-app.delete("api/v1/todos/:id", (req, res) => controller.DeleteTodosById(req, res));
+app.get("/api/v1/todos", (req, res) => controller.GetTodos(req, res));
+app.post("/api/v1/todos", (req, res) => controller.PostTodos(req, res));
+app.get("/api/v1/todos/:id", (req, res) => controller.GetTodosById(req, res));
+app.put("/api/v1/todos/:id", (req, res) => controller.UpdateTodosById(req, res));
+app.delete("/api/v1/todos/:id", (req, res) => controller.DeleteTodosById(req, res));
 app.listen(dotenv.config('PORT')['parsed']['PORT']);
