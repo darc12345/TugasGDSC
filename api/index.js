@@ -8,6 +8,7 @@ import cookieSession from 'cookie-session';
 
 let app = express()
 const sql = postgres(dotenv.config('DATABASE_URL')['parsed']['DATABASE_URL']);
+// console.log(dotenv.config('DATABASE_URL')['parsed']['DATABASE_URL']);
 let controller = new Controller(sql);
 
 app.use(express.json())
