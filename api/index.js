@@ -4,6 +4,7 @@ import postgres from "postgres";
 import Controller from "./controller/controller.js";
 import { todosMiddleware } from "./service/service.js";
 import cookieSession from "cookie-session";
+import cors from 'cors';
 
 // console.log(process.env);
 // Log to check if environment variables are loaded
@@ -14,7 +15,7 @@ const sql = postgres(process.env.DATABASE_URL);
 
 let app = express();
 let controller = new Controller(sql);
-
+app.use(cors());
 app.use(express.json());
 
 app.use(

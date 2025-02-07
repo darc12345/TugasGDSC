@@ -38,7 +38,6 @@ export function todosMiddleware(req, res, next){
         next();
     }
     else{
-        console.log("Logging in..")
-        res.redirect('/login');
+        return res.status(400).json({message:"The user hasn't logged in yet."});
     }
 }
