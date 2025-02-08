@@ -57,7 +57,7 @@ export default class Repository {
             INSERT INTO 
             todos(user_id, title, description, due_date, priority, is_complete, updated_at) 
             VALUES(
-                ${req.session.user_id}, ${json['title']}, ${json['description']}, ${json['due_date']}, ${json['priority']}, ${json['is_complete']}, NOW()
+                ${req.session.user_id}, ${json['title']}, ${json['description']}, ${json['due_date']}, ${json['priority']}, 'false', NOW()
             );`;
         } catch (err) {
             console.error(err);
