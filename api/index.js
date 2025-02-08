@@ -15,7 +15,12 @@ const sql = postgres(process.env.DATABASE_URL);
 
 let app = express();
 let controller = new Controller(sql);
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://monkeydoweb.vercel.app",
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 app.use(
