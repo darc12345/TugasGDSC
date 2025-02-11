@@ -92,7 +92,7 @@ export default class Repository {
                 priority = ${json['priority']}, 
                 is_complete = ${json['is_complete']}, 
                 updated_at = NOW()
-            WHERE todo_id = ${json['todo_id']}`;
+            WHERE todo_id = ${req.params.todoId}`;
         } catch (err) {
             console.error(err);
             throw new Error("Error when updating todo by ID");
