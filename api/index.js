@@ -8,10 +8,10 @@ import cors from 'cors';
 
 // console.log(process.env);
 // Log to check if environment variables are loaded
-console.log("DATABASE_URL:", process.env.DATABASE_URI);
+console.log("DATABASE_URI:", process.env.DATABASE_URI);
 console.log("PORT:", process.env.PORT);
 
-const sql = postgres(process.env.DATABASE_URL);
+const sql = postgres(process.env.DATABASE_URI);
 
 let app = express();
 let controller = new Controller(sql);

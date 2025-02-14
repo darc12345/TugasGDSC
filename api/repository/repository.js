@@ -67,7 +67,7 @@ export default class Repository {
     }
 
     async GetTodosById(req, res) {
-        let todoId = req.params.todoId;
+        let todoId = req.params.id;
         try {
             const result = await this.db`
             SELECT * 
@@ -92,7 +92,7 @@ export default class Repository {
                 priority = ${json['priority']}, 
                 is_complete = ${json['is_complete']}, 
                 updated_at = NOW()
-            WHERE todo_id = ${req.params.todoId}`;
+            WHERE todo_id = ${req.params.id}`;
         } catch (err) {
             console.error(err);
             throw new Error("Error when updating todo by ID");
@@ -114,7 +114,7 @@ export default class Repository {
     }
 
     async DeleteTodosById(req, res) {
-        let todoId = req.params.todoId;
+        let todoId = req.params.id;
         try {
             await this.db`
             DELETE 
