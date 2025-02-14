@@ -82,15 +82,25 @@ export default class Repository {
 
     async UpdateTodosById(req, res) {
         let json = req.body;
+    
+        // Convert undefined values to null
+        let updatedValues = {
+            title: json['title'] ?? null,
+            description: json['description'] ?? null,
+            due_date: json['due_date'] ?? null,
+            priority: json['priority'] ?? null,
+            is_complete: json['is_complete'] ?? null
+        };
+    
         try {
             await this.db`
             UPDATE todos 
             SET 
-                title = ${json['title']}, 
-                description = ${json['description']}, 
-                due_date = ${json['due_date']}, 
-                priority = ${json['priority']}, 
-                is_complete = ${json['is_complete']}, 
+                title = COALESCE(${updatedValues.title}, title), 
+                description = COALESCE(${updatedValues.description}, description), 
+                due_date = COALESCE(${updatedValues.due_date}, due_date), 
+                priority = COALESCE(${updatedValues.priority}, priority), 
+                is_complete = COALESCE(${updatedValues.is_complete}, is_complete), 
                 updated_at = NOW()
             WHERE todo_id = ${req.params.id}`;
         } catch (err) {
@@ -99,6 +109,8 @@ export default class Repository {
         }
         return;
     }
+    
+    
 
     async GetTodos(req, res) {
         try {
