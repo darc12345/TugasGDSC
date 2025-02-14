@@ -22,12 +22,14 @@ app.use(
   })
 );
 app.use(express.json());
-
 app.use(
   cookieSession({
     name: "session",
     keys: [process.env.COOKIES_KEY1, process.env.COOKIES_KEY2],
     maxAge: 10 * 60 * 60 * 1000, // 10 hours
+    sameSite: "none",
+    secure: false,
+    httpOnly: true,
   })
 );
 
