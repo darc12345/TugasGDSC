@@ -17,7 +17,7 @@ let app = express();
 let controller = new Controller(sql);
 app.use(
   cors({
-    origin: "https://monkeydoweb.vercel.app",
+    origin: ["https://monkeydoweb.vercel.app", 'http://localhost:5173'],
     credentials: true,
   })
 );
